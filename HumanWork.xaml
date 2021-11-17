@@ -1,0 +1,118 @@
+﻿<Window
+    x:Class="WpfApp1.HumanWork"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfApp1"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="HumanWork"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid>
+        <DataGrid
+            Name="dataGrid1"
+            ItemsSource="{Binding}"
+            MouseUp="dataGrid1_MouseUp">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander Collapsed="Expander_Collapsed" Expanded="Expander_Expanded" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Width="120"
+                    Binding="{Binding Facility_type}"
+                    FontSize="22"
+                    Header="設備類型" />
+                <DataGridTextColumn
+                    Width="85"
+                    FontSize="22"
+                    Header="廠房代碼" />
+                <DataGridTextColumn
+                    Width="70"
+                    FontSize="22"
+                    Header="樓層" />
+                <DataGridTextColumn
+                    Width="430"
+                    FontSize="22"
+                    Header="部門名稱" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding Count_all}"
+                    FontSize="22"
+                    Header="設備總數" />
+                <DataGridTextColumn
+                    Width="115"
+                    Binding="{Binding Count_no}"
+                    FontSize="25"
+                    FontWeight="Bold"
+                    Foreground="Red"
+                    Header="未使用數量" />
+                <DataGridTextColumn
+                    Width="115"
+                    Binding="{Binding Count_yes}"
+                    FontSize="22"
+                    Foreground="Green"
+                    Header="使用中數量" />
+
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid
+                        Name="dataGrid2"
+                        Width="1070"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        HeadersVisibility="None"
+                        HorizontalGridLinesBrush="#FFE0E2DF"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Details}"
+                        MouseUp="dataGrid2_MouseUp"
+                        SelectedValuePath="dept_code"
+                        SelectionUnit="FullRow"
+                        VerticalGridLinesBrush="#FFE0E2DF">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="150" Header="" />
+                            <DataGridTextColumn
+                                Width="85"
+                                Binding="{Binding building_code}"
+                                FontSize="22"
+                                Header="廠房代碼" />
+                            <DataGridTextColumn
+                                Width="70"
+                                Binding="{Binding floor}"
+                                FontSize="22"
+                                Header="樓層" />
+                            <DataGridTextColumn
+                                Width="430"
+                                Binding="{Binding dept_name}"
+                                FontSize="22"
+                                Header="部門名稱" />
+                            <DataGridTextColumn
+                                Width="100"
+                                Binding="{Binding count_all}"
+                                FontSize="22"
+                                Header="設備總數" />
+                            <DataGridTextColumn
+                                Width="115"
+                                Binding="{Binding count_no}"
+                                FontSize="25"
+                                FontWeight="Bold"
+                                Foreground="Red"
+                                Header="未使用數量" />
+                            <DataGridTextColumn
+                                Width="115"
+                                Binding="{Binding count_yes}"
+                                FontSize="22"
+                                Foreground="Green"
+                                Header="使用中數量" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </Grid>
+</Window>
