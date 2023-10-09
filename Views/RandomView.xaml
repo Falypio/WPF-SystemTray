@@ -1,0 +1,122 @@
+﻿<Window
+    x:Class="WpfApp1.Views.RandomView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="700"
+    Height="500"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Text="生成数量:" />
+                <TextBox
+                    Width="100"
+                    Height="30"
+                    Margin="10,0"
+                    FontSize="20"
+                    Text="{Binding Quantity}" />
+                <Button
+                    x:Name="btnStart"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0"
+                    Command="{Binding StartCommand}"
+                    IsEnabled="{Binding IsBegin}">
+                    开始生成
+                </Button>
+
+                <Button
+                    x:Name="btnEnd"
+                    Width="100"
+                    Height="30">
+                    结束生成
+                </Button>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1">
+            <ListBox ItemsSource="{Binding RandomDuotones}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Red"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Red1}" />
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Red"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Red2}" />
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Red"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Red3}" />
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Red"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Red4}" />
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Red"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Red5}" />
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Red"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Red6}" />
+                            <TextBox
+                                Width="30"
+                                Height="30"
+                                Background="Blue"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="White"
+                                IsReadOnly="True"
+                                Text="{Binding Blue1}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+    </Grid>
+</Window>

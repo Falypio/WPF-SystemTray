@@ -21,4 +21,5 @@ namespace WpfApp1
         }
         private TaskbarIcon _taskbar;
     }
+
 }

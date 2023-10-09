@@ -1,0 +1,251 @@
+﻿<Window
+    x:Class="WpfApp1.Views.DataGridInDataGrid"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfApp1"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DataGridInDataGrid"
+    Width="800"
+    Height="600"
+    MinWidth="800"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <!--  第一部分:内嵌的ListBox用什么布局  -->
+        <ItemsPanelTemplate x:Key="itemspanel">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+        <!--  第二部分:内嵌ListBox的项模板  -->
+        <DataTemplate x:Key="itemstemplate">
+            <!--
+                用Canvas来装可以精确定位项,但没有水平滚动条Canvas.Left="{Binding Path=LeftWidth}" Canvas.Top="0"
+                只好用StackPanel来布局
+            -->
+            <StackPanel Orientation="Vertical">
+                <Border
+                    BorderBrush="Blue"
+                    BorderThickness="1"
+                    CornerRadius="3">
+                    <StackPanel Margin="5,0,5,0" Orientation="Horizontal">
+                        <!--  这里是装项内容  -->
+                        <TextBlock
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding Path=ChoseName}" />
+                        <TextBox
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            IsReadOnly="True"
+                            Text="{Binding Path=ChoseContent}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DataGrid
+            Name="datagrid1"
+            Grid.Row="0"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="ID值" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander Collapsed="Expander_Collapsed" Expanded="Expander_Expanded" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Width="auto"
+                    Binding="{Binding questionName}"
+                    Header="题目"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn
+                    x:Name="datacol"
+                    Width="Auto"
+                    Header="图斑类型">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{Binding DistrictModels.Code}" />
+                                <DataGrid
+                                    x:Name="datagrid3"
+                                    Grid.Row="1"
+                                    AutoGenerateColumns="False"
+                                    Background="Green"
+                                    HeadersVisibility="All"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding choseItems}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding ChoseName}" Header="选项名" />
+                                        <DataGridTextColumn Binding="{Binding ChoseContent}" Header="选项内容举例" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid
+                        Margin="30,10,0,20"
+                        AutoGenerateColumns="False"
+                        Background="Green"
+                        ItemsSource="{Binding choseItems}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ChoseName}" Header="选项名" />
+                            <DataGridTextColumn Binding="{Binding ChoseContent}" Header="选项内容举例" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+        <ListBox x:Name="listBox" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <Border
+                            Width="740"
+                            MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type ListBox}, Mode=FindAncestor}}"
+                            Margin="2"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <Grid>
+                                <Grid.Resources>
+                                    <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="30,10,0,10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="编号:" />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Width="120"
+                                        Margin="20,10,0,10"
+                                        HorizontalAlignment="Center"
+                                        FontSize="18"
+                                        Text="{Binding questionID}" />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="30,10,0,10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"><Run Text="名称：" /></TextBlock>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Width="120"
+                                        Margin="20,10,0,10"
+                                        HorizontalAlignment="Center"
+                                        FontSize="18"
+                                        Text="{Binding questionName}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Width="100"
+                                        Margin="30,10,0,10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="状态：" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Width="120"
+                                        Margin="20,10,0,10"
+                                        FontSize="18"
+                                        Text="{Binding questionName}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Width="100"
+                                        Margin="30,10,0,10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="时间：" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Width="120"
+                                        Margin="20,10,0,10"
+                                        FontSize="18"
+                                        Text="{Binding questionName}" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Width="100"
+                                        Margin="30,10,0,10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="内容：" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Width="120"
+                                        Margin="20,10,0,10"
+                                        FontSize="18"
+                                        Text="{Binding questionName}" />
+                                    <ToggleButton
+                                        x:Name="toggleButton"
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Width="100"
+                                        Content="Toggle" />
+                                </Grid>
+                                <DataGrid
+                                    x:Name="datagrid3"
+                                    Grid.Row="1"
+                                    AutoGenerateColumns="False"
+                                    Background="Green"
+                                    ItemsSource="{Binding choseItems}"
+                                    PreviewMouseWheel="datagrid3_PreviewMouseWheel"
+                                    Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=toggleButton}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding ChoseName}" Header="选项名" />
+                                        <DataGridTextColumn Binding="{Binding ChoseContent}" Header="选项内容举例" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

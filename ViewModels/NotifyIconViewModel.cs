@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using WpfApp1.Common;
 
-namespace WpfApp1
+namespace WpfApp1.ViewModels
 {
-     public class NotifyIconViewModel
+    public class NotifyIconViewModel
     {
         /// <summary>
         /// 如果窗口没显示，就显示窗口

@@ -80,7 +80,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Foreground="White"
-                Text="菜单列表" />
+                Text="菜单列表1" />
         </Border>
         <!--  内容页  -->
         <Border Background="#409EFF">
@@ -105,24 +105,55 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="打开菜单" />
-                <Button
-                    x:Name="btnDataGrid"
-                    Width="100"
-                    Height="30"
-                    Margin="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Click="btnDataGrid_Click"
-                    Content="打开主从表" />
-                <Button
-                    x:Name="btnDataMin"
-                    Width="100"
-                    Height="30"
-                    Margin="20,60,20,20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Command="{Binding HideWindowCommand}"
-                    Content="最小化" />
+                <StackPanel>
+                    <Button
+                        x:Name="btnDataGrid"
+                        Width="100"
+                        Height="30"
+                        Margin="5,20,5,5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="btnDataGrid_Click"
+                        Content="打开主从表" />
+                    <Button
+                        x:Name="btnScope"
+                        Width="100"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="btnScope_Click"
+                        Content="打开示波器" />
+                    <Button
+                        x:Name="btnPrism"
+                        Width="100"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="btnPrism_Click"
+                        Content="打开列头菜单" />
+
+
+                    <Button
+                        x:Name="btnRandom"
+                        Width="100"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="btnRandom_Click"
+                        Content="打开随机数" />
+                    <Button
+                        x:Name="btnDataMin"
+                        Width="100"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Command="{Binding HideWindowCommand}"
+                        Content="最小化" />
+                </StackPanel>
                 <Button
                     x:Name="bt_open"
                     Width="60"
@@ -131,7 +162,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Content="开" />
-                <StackPanel>
+                <StackPanel VerticalAlignment="Bottom">
                     <Grid Margin="100">
                         <Ellipse
                             x:Name="Ellipse"
