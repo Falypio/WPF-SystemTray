@@ -1,4 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:ed="http://www.microsoft.net/drawing">
+    
     <Style x:Key="MenuListBox1" TargetType="{x:Type ListBoxItem}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -27,4 +30,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
 </ResourceDictionary>

@@ -133,7 +133,15 @@
                         VerticalAlignment="Top"
                         Click="btnPrism_Click"
                         Content="打开列头菜单" />
-
+                    <Button
+                        x:Name="btnLiveCharts"
+                        Width="100"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="btnLiveCharts_Click"
+                        Content="打开饼状图" />
 
                     <Button
                         x:Name="btnRandom"

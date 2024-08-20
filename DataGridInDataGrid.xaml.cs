@@ -19,6 +19,54 @@ namespace WpfApp1
     /// </summary>
     public partial class DataGridInDataGrid : Window
     {
+        public static readonly DependencyProperty SharedVerticalOffsetProperty =
+       DependencyProperty.Register("SharedVerticalOffset", typeof(double), typeof(DataGridInDataGrid), new PropertyMetadata(0.0, OnSharedVerticalOffsetChanged));
+
+        public double SharedVerticalOffset
+        {
+            get { return (double)GetValue(SharedVerticalOffsetProperty); }
+            set { SetValue(SharedVerticalOffsetProperty, value); }
+        }
+
+        private static void OnSharedVerticalOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var mainWindow = d as DataGridInDataGrid;
+            if (mainWindow != null)
+            {
+                var newOffset = (double)e.NewValue;
+                // 获取Page1中的DataGrid的ScrollViewer并滚动到新的位置
+                ScrollViewer svPage1 = GetDescendantScrollViewer(mainWindow.Control1.DataGrid1);
+                if (svPage1 != null)
+                {
+                    svPage1.ScrollToVerticalOffset(newOffset);
+                }
+
+                // 获取Page2中的DataGrid的ScrollViewer并滚动到新的位置
+                ScrollViewer svPage2 = GetDescendantScrollViewer(mainWindow.Control2.DataGrid1);
+                if (svPage2 != null)
+                {
+                    svPage2.ScrollToVerticalOffset(newOffset);
+                }
+            }
+        }
+
+        private static ScrollViewer GetDescendantScrollViewer(DependencyObject element)
+        {
+            if (element == null) return null;
+
+            if (element is ScrollViewer) return (ScrollViewer)element;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                var child = VisualTreeHelper.GetChild(element, i);
+
+                var result = GetDescendantScrollViewer(child);
+                if (result != null) return result;
+            }
+
+            return null;
+        }
+
         public DataGridInDataGrid()
         {
             InitializeComponent();

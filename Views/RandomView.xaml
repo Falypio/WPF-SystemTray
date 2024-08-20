@@ -42,7 +42,10 @@
                 </Button>
             </StackPanel>
         </Border>
-        <Border Grid.Row="1">
+        <Border
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
             <ListBox ItemsSource="{Binding RandomDuotones}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

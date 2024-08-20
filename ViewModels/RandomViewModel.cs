@@ -146,7 +146,7 @@ namespace WpfApp1.ViewModels
         
         public async Task<int> GetNum(int min, int max)
         {
-            await Task.Delay(500);//随机休息0.5秒
+            await Task.Delay(100);//随机休息0.1秒
             return GetIntNum(min, max);
         }
 

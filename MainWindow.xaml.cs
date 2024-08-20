@@ -91,5 +91,11 @@ namespace WpfApp1
             RandomView dataGrid = new RandomView();
             dataGrid.ShowDialog();
         }
+
+        private void btnLiveCharts_Click(object sender, RoutedEventArgs e)
+        {
+            LiveChartView liveChart = new LiveChartView();
+            liveChart.ShowDialog();
+        }
     }
 }

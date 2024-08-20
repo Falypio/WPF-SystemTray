@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="WpfApp1.Views.Oscilloscope.DataGridLinkage.DataGridControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WpfApp1.Views.Oscilloscope.DataGridLinkage" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="Window_Loaded" mc:Ignorable="d">
+    <Grid>
+        <DataGrid Name="DataGrid1" Grid.Row="0"
+                  AutoGenerateColumns="False" ScrollViewer.ScrollChanged="DataGrid1_ScrollChanged">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="ID值" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander Collapsed="Expander_Collapsed" Expanded="Expander_Expanded" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="auto"
+                                    Binding="{Binding questionName}"
+                                    Header="题目" IsReadOnly="True" />
+                <DataGridTemplateColumn x:Name="datacol" Width="Auto"
+                                        Header="图斑类型">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                       Content="{Binding DistrictModels.Code}" />
+                                <DataGrid x:Name="datagrid3" Grid.Row="1"
+                                          AutoGenerateColumns="False" Background="Green"
+                                          HeadersVisibility="All" IsReadOnly="True"
+                                          ItemsSource="{Binding choseItems}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding ChoseName}" Header="选项名" />
+                                        <DataGridTextColumn Binding="{Binding ChoseContent}" Header="选项内容举例" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid Margin="30,10,0,20" AutoGenerateColumns="False"
+                              Background="Green"
+                              ItemsSource="{Binding choseItems}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ChoseName}" Header="选项名" />
+                            <DataGridTextColumn Binding="{Binding ChoseContent}" Header="选项内容举例" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </Grid>
+</UserControl>

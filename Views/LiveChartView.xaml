@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfApp1.Views.LiveChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:prism="http://prismlibrary.com/"             
+             Width="700"
+             Height="500"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <!--饼状图文字-->
+            <Style x:Key="FontPieSeries" TargetType="{x:Type lvc:PieSeries}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Microsoft Yahei"/>
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <lvc:PieChart LegendLocation="Left" InnerRadius="0" DataTooltip="{x:Null}" ScrollHorizontalFrom="100" Width="150" Height="150" StartingRotationAngle="250">
+            <lvc:PieChart.Series>
+                <lvc:PieSeries Values="30" Style="{StaticResource FontPieSeries}" Fill="Red" DataLabels="False" Title="红色" />
+                <lvc:PieSeries Values="20" Style="{StaticResource FontPieSeries}" Fill="Green" DataLabels="False" Title="绿色"/>
+                <lvc:PieSeries Values="20" Style="{StaticResource FontPieSeries}" Fill="#FFE022" DataLabels="False" Title="绿色"/>
+                <lvc:PieSeries Values="60" Style="{StaticResource FontPieSeries}" FontSize="16" Fill="Blue" DataLabels="True" Title="蓝色"/>
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
+    </Grid>
+</Window>

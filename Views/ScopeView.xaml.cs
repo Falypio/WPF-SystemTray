@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -40,16 +41,15 @@ namespace WpfApp1.Views
         public ScopeView()
         {
             InitializeComponent();
-            this.Closing += CloseWindow;
+            //this.Closing += CloseWindow;
             InitDynamicDataDisplay();
         }
-
 
         // 关闭窗口
         private void CloseWindow(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
-            this.Close();
+            //this.Close();
         }
 
         // 折线图动态数据展示
