@@ -38,8 +38,6 @@ namespace WpfApp1.ViewModels.Oscilloscope
 
         }
 
-
-
         private ICommand channelAddCommand;
         public ICommand ChannelAddCommand => channelAddCommand ??= new DelegateCommand(ExecuteChannelAddCommand);
 

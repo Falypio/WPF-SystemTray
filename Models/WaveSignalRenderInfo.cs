@@ -1,4 +1,4 @@
-﻿using ScottPlot.Plottable;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace WpfApp1.Models
         public double[] ys;
         public int renderedIndex;
         public int capacity;
-        public SignalPlot? plot;
+        //public SignalPlot? plot;
 
         public WaveSignalRenderInfo(string name, int capacity)
         {

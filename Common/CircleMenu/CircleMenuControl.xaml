@@ -1,0 +1,136 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:circleMenu="clr-namespace:WpfApp1.Common.CircleMenu">
+    <!--  弹出时间  -->
+    <Duration x:Key="CircleDuration">0:0:0.3</Duration>
+    <Style x:Key="CircularButton" TargetType="Button">
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse x:Name="ellipse"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Fill="{TemplateBinding Background}"
+                            IsHitTestVisible="True"
+                            Stroke="{TemplateBinding BorderBrush}"
+                            StrokeThickness="0">
+                            <Ellipse.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="20" Direction="0"
+                                    Opacity="0.4" RenderingBias="Quality"
+                                    ShadowDepth="0" Color="Black" />
+                            </Ellipse.Effect>
+                        </Ellipse>
+                        <!--<Path
+                            Width="50" Height="50"
+                            Data="{StaticResource Direction}"
+                            Fill="#888686" Opacity="1"
+                            Stretch="Uniform" />-->
+                        <TextBlock
+                            FontSize="50" Foreground="Black"
+                            Style="{StaticResource FIcon}"
+                            Text="&#xed55;" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type circleMenu:CircleMenuControl}">
+        <Setter Property="Height" Value="{Binding Width, RelativeSource={RelativeSource Self}}" />
+        <!--  旋转度数  -->
+        <Setter Property="Angle" Value="360" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type circleMenu:CircleMenuControl}">
+                    <Grid x:Name="PART_Container"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        VerticalAlignment="Top">
+                        <!--#region  中心菜单按钮-->
+                        <Border
+                            Width="100" Height="100"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Panel.ZIndex="999" Background="#e7e7e7"
+                            BorderBrush="Blue" BorderThickness="0"
+                            CornerRadius="100"
+                            Style="{x:Null}">
+                            <Button x:Name="PART_CenterBtn"
+                                Width="100" Height="100"
+                                Background="#e7e7e7"
+                                Style="{StaticResource CircularButton}" />
+                        </Border>
+                        <!--<Ellipse
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Panel.ZIndex="-1"
+                            Fill="Transparent"
+                            Style="{x:Null}" />-->
+                        <!--#endregion-->
+                        <circleMenu:CircleMenuItemsPresenter x:Name="PART_PanelPresenter" Angle="{TemplateBinding Angle}" Status="Initial" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Initial">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PanelPresenter" Storyboard.TargetProperty="Status">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <circleMenu:CircleMenuStatus>Initial</circleMenu:CircleMenuStatus>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Collapsed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PanelPresenter" Storyboard.TargetProperty="Status">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <circleMenu:CircleMenuStatus>Collapsed</circleMenu:CircleMenuStatus>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PanelPresenter" Storyboard.TargetProperty="Status">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <circleMenu:CircleMenuStatus>Expanded</circleMenu:CircleMenuStatus>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--  http://stackoverflow.com/questions/6683503/wpf-visualstatemanager-how-to-animate-properties-inside-a-templated-child  -->
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <circleMenu:CircleMenuPanel x:Name="CircleMenuPanel"
+                        Angle="{Binding Angle, RelativeSource={RelativeSource FindAncestor, AncestorType=circleMenu:CircleMenuItemsPresenter}}"
+                        AnimationDuration="{StaticResource CircleDuration}"
+                        AnimationDurationStep="0.1"
+                        PanelStatus="{Binding Status, RelativeSource={RelativeSource FindAncestor, AncestorType=circleMenu:CircleMenuItemsPresenter}}"
+                        Radius="100" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
