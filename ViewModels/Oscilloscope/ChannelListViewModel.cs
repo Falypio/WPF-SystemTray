@@ -27,7 +27,15 @@ namespace WpfApp1.ViewModels.Oscilloscope
         public ChannelModel SelectedChannel
         {
             get { return selectedChannel; }
-            set { SetProperty(ref selectedChannel, value); }
+            set
+            {
+                if (SetProperty(ref selectedChannel, value, nameof(SelectedChannel)))
+                {
+                    if (selectedChannel != null)
+                        channelListener.OnSelectChanged(selectedChannel.ChannelUid);
+
+                }
+            }
         }
 
         public ChannelListViewModel(IListViewItemListener lisenter)
@@ -43,7 +51,12 @@ namespace WpfApp1.ViewModels.Oscilloscope
 
         private void ExecuteChannelAddCommand()
         {
-            ChannelModel channel = new ChannelModel(this.GetHashCode(), $"通道{this.GetHashCode()}");
+            if (ChannelModels.Count() >= 16)
+            {
+                Console.WriteLine("最多16通道");
+                return;
+            }
+            ChannelModel channel = new ChannelModel(ChannelModels.Count() + 1, $"通道{ChannelModels.Count()+1}");
             //channel.ChannelUid = this.GetHashCode()
             ChannelModels.Add(channel);
             channelListener.OnAdded(channel.ChannelUid, channel.ChannelName);
@@ -54,9 +67,10 @@ namespace WpfApp1.ViewModels.Oscilloscope
 
         private void ExecuteChannelDelCommand(object id)
         {
-            SelectedChannel = ChannelModels.Where(x=>x.ChannelUid.Equals(id)).FirstOrDefault();
+            var sds = ChannelModels.Where(x => x.ChannelUid.Equals(id)).FirstOrDefault();
+            SelectedChannel = sds;
+            channelListener?.OnRemoved(SelectedChannel.ChannelUid);
             ChannelModels.Remove(SelectedChannel);
-            channelListener.OnRemoved(SelectedChannel.ChannelUid);
         }
 
     }

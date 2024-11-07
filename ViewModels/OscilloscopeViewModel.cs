@@ -17,14 +17,16 @@ namespace WpfApp1.ViewModels
 
         private readonly IEventAggregator m_aggregator;
 
+        private IListViewItemListener channelListener = null!;
+
         public ChannelListViewModel ChannelListModel { get; set; }
 
         public OscilloscopeConsoleViewModel OscilloscopeConsoleModel { get; set; }
 
         public VernierListViewModel VernierListModel { get; set; }
-        public OscilloscopeViewModel(IEventAggregator eventAggregator)
+        public OscilloscopeViewModel()
         {
-            m_aggregator = new EventAggregator();
+            m_aggregator = App.EventAggregator;
 
             //m_dialogService = dialogService;
 

@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Drive.v3.Data;
+using Prism.Events;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -66,8 +67,9 @@ namespace WpfApp1
         /// <param name="e"></param>
         private void btnScope_Click(object sender, RoutedEventArgs e)
         {
-            ScopeView dataGrid = new ScopeView();
-            dataGrid.ShowDialog();
+            //ScopeView dataGrid = new ScopeView();
+            OscilloscopeView oscilloscope = new OscilloscopeView();
+            oscilloscope.ShowDialog();
         }
         /// <summary>
         /// 打开列头菜单

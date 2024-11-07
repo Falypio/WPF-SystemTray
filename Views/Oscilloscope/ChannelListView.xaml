@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="450" d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -13,39 +12,32 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
-            <Button
-                x:Name="btnAdd"
-                Width="100"
-                Height="30"
+            <Button x:Name="btnAdd"
+                Width="100" Height="30"
                 Command="{Binding ChannelAddCommand}">
                 添加
             </Button>
         </Border>
-        <ListBox
-            x:Name="channelList"
-            Grid.Row="1"
+        <ListBox x:Name="channelList" Grid.Row="1"
             MinHeight="100"
             ItemsSource="{Binding ChannelModels}"
             SelectedItem="{Binding SelectedChannel}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Height="40" VerticalAlignment="Center">
-                        <TextBlock
+                        <!--<TextBlock
                             Width="100"
                             Height="30"
                             Margin="5,0"
                             DockPanel.Dock="Left"
                             FontSize="20"
-                            Text="{Binding ChannelUid}" />
+                            Text="{Binding ChannelUid}" />-->
                         <TextBlock
-                            Width="100"
-                            Height="30"
-                            DockPanel.Dock="Left"
-                            FontSize="20"
+                            Width="100" Height="30"
+                            DockPanel.Dock="Left" FontSize="20"
                             Text="{Binding ChannelName}" />
                         <Button
-                            Width="100"
-                            Height="30"
+                            Width="100" Height="30"
                             Command="{Binding DataContext.ChannelDelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                             CommandParameter="{Binding ChannelUid, Mode=TwoWay}"
                             DockPanel.Dock="Right">

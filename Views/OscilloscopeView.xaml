@@ -15,19 +15,65 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <scope:ScottPlotView />
+        <scope:ScottPlotView x:Name="Plot" />
         <Border Grid.Column="1">
-            <StackPanel>
-                <GroupBox BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                </Grid.RowDefinitions>
+                <GroupBox BorderBrush="Black" BorderThickness="1" Header="通道">
                     <scope:ChannelListView DataContext="{Binding ChannelListModel}" />
                 </GroupBox>
-                <GroupBox BorderBrush="Black" BorderThickness="1">
+                <GroupBox Grid.Row="1"
+                    BorderBrush="Black" BorderThickness="1"
+                    Header="卡尺">
                     <scope:VernierListView DataContext="{Binding VernierListModel}" />
                 </GroupBox>
-                <GroupBox BorderBrush="Black" BorderThickness="1">
-                    <scope:OscilloscopeConsoleView />
+                <GroupBox Grid.Row="2"
+                    BorderBrush="Black" BorderThickness="1"
+                    Header="控制">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                            <ToggleButton x:Name="LockY"
+                                Width="50" Height="30"
+                                Margin="10,0" Content="锁定Y轴" />
+                            <ToggleButton x:Name="LockX"
+                                Width="50" Height="30"
+                                Content="锁定X轴" />
+                            <TextBlock Margin="10,0" VerticalAlignment="Center" Text="频率:" />
+                            <ComboBox x:Name="Frequency"
+                                Width="120" Height="30"
+                                SelectionChanged="Frequency_SelectionChanged">
+                                <ComboBoxItem Content="2000" />
+                                <ComboBoxItem Content="4000" />
+                                <ComboBoxItem Content="8000" />
+                                <ComboBoxItem Content="16000" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                            <Button x:Name="BtnStart"
+                                Width="100" Height="30"
+                                Margin="5,0" Click="BtnStart_Click">
+                                开始
+                            </Button>
+
+                            <Button x:Name="BtnEnd"
+                                Width="100" Height="30"
+                                Click="BtnEnd_Click">
+                                停止
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <!--<scope:OscilloscopeConsoleView />-->
                 </GroupBox>
-            </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Window>
