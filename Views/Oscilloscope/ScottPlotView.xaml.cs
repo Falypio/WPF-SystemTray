@@ -193,13 +193,6 @@ namespace WpfApp1.Views.Oscilloscope
             //WpfPlot1.Plot.Axes.Left.MinimumSize = 1;
 
             WpfPlot1.Plot.Font.Automatic();//设置字体
-
-            WpfPlot1.MouseWheel += WpfPlot1_MouseWheel;
-        }
-
-        private void WpfPlot1_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var sd = WpfPlot1.Plot.Axes.Bottom.Range;
         }
 
         /// <summary>
@@ -232,26 +225,13 @@ namespace WpfApp1.Views.Oscilloscope
             
             Parallel.ForEach(CurveData.Values, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, item =>
             {
-                //Array.Copy(item, 1, item, 0, item.Length - 1);
-                //item[item.Length - 1] = Math.Sin(ccc * multiplier + phase);
                 item[CurveDataLength - 1] = Math.Sin(ccc * multiplier + phase);
-                
             });
             CurveDataLength--;
             if (CurveDataLength == 1)
             {
                 CurveDataLength = pointMaxCount;
             }
-            //Parallel.ForEach(Buffers, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, entry =>
-            //{
-            //    entry.Value.Add(Math.Sin(ccc * multiplier + phase));
-            //    CurveData[entry.Key] = entry.Value.Buffer;
-            //});
-
-            //foreach (var item in renderInfos.Values)
-            //{
-            //    item.Add(Math.Sin(ccc * multiplier + phase));
-            //}
         }
 
         public void UpdateAddSystemTimer(string frequency = "2000")
@@ -261,25 +241,6 @@ namespace WpfApp1.Views.Oscilloscope
             //频率 8000 Hz 的时间是 0.125 毫秒
             //频率 16000 Hz 的时间是 0.0625 毫秒
             m_frequency = 1000.0 / Convert.ToInt32(frequency);
-            //AddSystemTimer = new() { Interval = m_frequency };
-
-            //AddSystemTimer.Elapsed += (s, e) =>
-            //{
-            //    // Changing data length will throw an exception if it occurs mid-render.
-            //    // Operations performed while the sync object will occur outside renders.
-            //    stopwatch.Restart();
-            //    lock (WpfPlot1.Plot.Sync)
-            //    {
-            //        RefreshOPMUI();
-            //    }
-            //    stopwatch.Stop();
-            //    // WpfPlot1.Refresh();
-            //    sutr++;
-            //    if (sutr % 1000 == 0)
-            //    {
-            //        Debug.WriteLine($"当前时间{DateTime.Now.ToString("hh:mm:ss fff")}");
-            //    }
-            //};
         }
 
         private Stopwatch stopwatchStart = new Stopwatch();
@@ -307,24 +268,21 @@ namespace WpfApp1.Views.Oscilloscope
                     {
                         lock (WpfPlot1.Plot.Sync)
                         {
-                            //stopwatchStart.Restart();
                             RefreshOPMUI();
-                            //stopwatchStart.Stop();
                         }
                         AddDeviceTimer.Start(m_frequency);
 
-                        sutr++;
-                        if (sutr % 2000 == 0)
-                        {
-                            stopwatchStart.Stop();
-                            //Debug.WriteLine($"SHA1 {stopwatchStart.ElapsedTicks * 1000000F / Stopwatch.Frequency:n3}μs");
-                            Debug.WriteLine(stopwatchStart.ElapsedMilliseconds);
-                            stopwatchStart.Restart();
-                        }
+                        //sutr++;
+                        //if (sutr % 2000 == 0)
+                        //{
+                        //    stopwatchStart.Stop();
+                        //    long elapsedMicroseconds = stopwatchStart.ElapsedTicks / (Stopwatch.Frequency / 1000000);
+                        //    Debug.WriteLine(elapsedMicroseconds);
+                        //    stopwatchStart.Restart();
+                        //}
                     }
                 }
             });
-
         }
 
         /// <summary>
@@ -386,7 +344,6 @@ namespace WpfApp1.Views.Oscilloscope
             foreach (var pair in CurveData)
             {
                 Array.Fill(pair.Value, 0.0);
-                //Buffers[pair.Key].ToArrayFill();
             }
 
             //foreach (var item in renderInfos.Values)
@@ -419,10 +376,8 @@ namespace WpfApp1.Views.Oscilloscope
             Signal plot = WpfPlot1.Plot.Add.Signal(ys, 1);
             plot.LegendText = name;
             plot.Data.YOffset = renderInfos.Count() * 10;
-
             renderInfos.TryAdd(key, plot);
             CurveData.TryAdd(key, ys);
-
             //Buffers.TryAdd(key, new CircularBuffer<double>(ys));
 
             //SignalConst<double> signalConst = WpfPlot1.Plot.Add.SignalConst(ys,1);
